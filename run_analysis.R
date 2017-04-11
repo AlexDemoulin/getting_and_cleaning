@@ -7,8 +7,6 @@
 folder<-"~/R/UCI HAR Dataset/"
 
 filenames_base<-c("y","X")
-filenames_inertial<-c("body_acc_x","body_acc_y","body_acc_z","body_gyro_x","body_gyro_y",
-                      "body_gyro_z","total_acc_x","total_acc_y","total_acc_z")
 
 features<-read.table(paste0(folder,"features.txt"),stringsAsFactors =FALSE)
 activity_labels<-read.table(paste0(folder,"activity_labels.txt"),stringsAsFactors =FALSE)
@@ -22,11 +20,6 @@ for (name in filenames_base){
     data_read<-read.table(file,strip.white = TRUE,stringsAsFactors =FALSE)
     table_test<-cbind(table_test,data_read)
 }
-for (name in filenames_inertial){
-    file<-paste0(folder,"test/Inertial Signals/",name,"_test.txt")
-    data_read<-read.table(file,strip.white = TRUE,stringsAsFactors =FALSE)
-    table_test<-cbind(table_test,data_read)
-}
 
 #initialisation of the table for train data
 table_train<-read.table(paste0(folder,"train/subject_train.txt"))
@@ -37,35 +30,12 @@ for (name in filenames_base){
     data_read<-read.table(file,strip.white = TRUE,stringsAsFactors =FALSE)
     table_train<-cbind(table_train,data_read)
 }
-for (name in filenames_inertial){
-    file<-paste0(folder,"train/Inertial Signals/",name,"_train.txt")
-    data_read<-read.table(file,strip.white = TRUE,stringsAsFactors =FALSE)
-    table_train<-cbind(table_train,data_read)
-}
 
 #merging train and test data into one table
 table_all<-rbind(table_test,table_train)
 
-#setting variable names in table_all
-body_acc_x_label<-paste0(rep("body_acc_x",128),1:128)
-body_acc_y_label<-paste0(rep("body_acc_y",128),1:128)
-body_acc_z_label<-paste0(rep("body_acc_z",128),1:128)
-body_gyro_x<-paste0(rep("body_gyro_x",128),1:128)
-body_gyro_y<-paste0(rep("body_gyro_y",128),1:128)
-body_gyro_z<-paste0(rep("body_gyro_z",128),1:128)
-total_acc_x<-paste0(rep("total_acc_x",128),1:128)
-total_acc_y<-paste0(rep("total_acc_y",128),1:128)
-total_acc_z<-paste0(rep("total_acc_z",128),1:128)
-
-variables_names<-c("Subject","Activity",features[,2],body_acc_x_label,body_acc_y_label,body_acc_z_label,
-                   body_gyro_x,body_gyro_y,body_gyro_z,total_acc_x,total_acc_y,total_acc_z)
+variables_names<-c("Subject","Activity",features[,2])
 colnames(table_all)<-variables_names
-
-#setting measuments as numeric values
-# table_all_size<-ncol(table_all)
-# table_all[,3:table_all_size]<-sub(" ","",table_all[,3:table_all_size])
-# table_all[,3:table_all_size]<-sub(" ","",table_all[,3:table_all_size])
-# table_all[,3:table_all_size]<-as.numeric(as.character(table_all[,3:table_all_size]))
 
 #table_all is now a merge of test and train data with the columns name filled with variable names
 
@@ -96,8 +66,6 @@ table_mean_std$Activity[table_mean_std$Activity=="5"]<-"STANDING"
 table_mean_std$Activity[table_mean_std$Activity=="6"]<-"LAYING"
 table_mean_std$Activity<-as.factor(table_mean_std$Activity)
 table_mean_std$Subject<-as.factor(table_mean_std$Subject)
-
-# colnames(table_mean_std)<-sub("fBodyAcc-bandsEnergy()","fBAcc_Ene",colnames(table_mean_std))
 
 
 #From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
