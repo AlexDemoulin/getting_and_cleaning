@@ -1,4 +1,5 @@
-#Script and explanatios for Getting and Cleaning Data Course Project
+#Script and explanations for Getting and Cleaning Data Course Project
+
 This repo contains scripts and explanations for the Getting and Cleaning Data Course Project
 Files are:
 README.md : this file
