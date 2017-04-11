@@ -76,6 +76,9 @@ Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012
 
 ///////////////////////////////////////////////////// end of file
 
+Script outputs:
+========
+
 The script extracts mean and standard deviation for the following features :
 tBodyAcc-XYZ
 tGravityAcc-XYZ
