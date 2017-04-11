@@ -104,3 +104,7 @@ table_mean_std$Subject<-as.factor(table_mean_std$Subject)
 
 #table averaged_table filling with averaged variables
 averaged_table<-aggregate(table_mean_std[,3:table_size],list(Subject=table_mean_std$Subject,Activity=table_mean_std$Activity),FUN=mean)
+
+#create files
+write.table(table_mean_std,row.names=FALSE , file="table_mean_std.txt") 
+write.table(averaged_table,row.names=FALSE, file="averaged_table.txt") 
